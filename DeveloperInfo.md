@@ -1,1 +1,1 @@
-Dev name is nntung. I am working in Sweden.
+Dev name is nntung. I am working in Sweden. I am trying to use Git and GitHub.
