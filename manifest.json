@@ -15,8 +15,7 @@
         "tabs",
         "storage",
         "webNavigation",
-        "*://*.mousehuntgame.com/",
-        "notifications"
+        "*://*.mousehuntgame.com/"
     ],
 
     "background": {
