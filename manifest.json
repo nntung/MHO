@@ -4,17 +4,16 @@
     "description": "Study... scripts!",
     "manifest_version": 2,
     "icons": {
-        "128": "/images/cheeseOn64.png"
+        "128": "/images/horn128.png"
     },
 
     "browser_action": {
-        "default_icon": "/images/cheeseOff32.png"
+        "default_icon": "/images/cheese32off.png"
     },
 
     "permissions": [
         "tabs",
         "storage",
-        "webRequest",
         "webNavigation",
         "*://*.mousehuntgame.com/",
         "notifications"
