@@ -1,0 +1,37 @@
+{
+    "name": "MHO",
+    "version": "0.1.0",
+    "description": "Study... scripts!",
+    "manifest_version": 2,
+    "icons": {
+        "128": "/images/cheeseOn64.png"
+    },
+
+    "browser_action": {
+        "default_icon": "/images/cheeseOff32.png"
+    },
+
+    "permissions": [
+        "tabs",
+        "storage",
+        "webRequest",
+        "webNavigation",
+        "*://*.mousehuntgame.com/",
+        "notifications"
+    ],
+
+    "background": {
+        "persistent": false,
+        "page": "background.html"
+    },
+
+    "options_page": "options.html",
+
+    "content_scripts": [
+
+    ],
+
+    "web_accessible_resources": [
+        "images/*"
+    ]
+}
