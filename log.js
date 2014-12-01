@@ -18,6 +18,10 @@ var tags = [
     {
         tag: 'background',
         level: TRACE
+    },
+    {
+        tag: 'core',
+        level: TRACE
     }
 ];
 

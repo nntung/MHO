@@ -14,7 +14,6 @@
     "permissions": [
         "tabs",
         "storage",
-        "webNavigation",
         "*://*.mousehuntgame.com/"
     ],
 
@@ -26,6 +25,17 @@
     "options_page": "options.html",
 
     "content_scripts": [
+        {
+            "js": [
+                "log.js",
+                "core.js"
+            ],
+            "matches": [
+                "*://www.mousehuntgame.com/*"
+            ],
+            "all_frames": true,
+            "run_at": "document_start"
+        }
 
     ],
 
