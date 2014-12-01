@@ -18,7 +18,7 @@ function gotoMHGameTab() {
                 log('background', DEBUG, 'Found MHGame tab: ' + tab.url + '. ' +
                     'Focusing and refreshing user data ...');
                 chrome.tabs.update(tab.id, { selected: true });
-
+                updateBrowserActionView();
                 return;
             }
         }
@@ -28,3 +28,14 @@ function gotoMHGameTab() {
     });
 }
 
+function updateBrowserActionView() {
+    if (localStorage.MHO_login == 1) {
+        chrome.browserAction.setIcon({path: "/images/cheese32on.png"});
+        chrome.browserAction.setBadgeBackgroundColor({color:[208, 0, 24, 255]}); // Red
+        chrome.browserAction.setBadgeText({text:"19:25"});
+    } else {
+        chrome.browserAction.setIcon({path:"/images/cheese32off.png"});
+        chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]}); // Gray
+        chrome.browserAction.setBadgeText({text:"?"});
+    }
+}

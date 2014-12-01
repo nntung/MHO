@@ -7,9 +7,10 @@
  */
 var FATAL = 1;
 var ERROR = 2;
-var INFO = 3;
-var DEBUG = 4;
-var TRACE = 5;
+var WARNING = 3;
+var INFO = 4;
+var DEBUG = 5;
+var TRACE = 6;
 
 /**
  * Log configuration
@@ -43,23 +44,22 @@ function log(tag, level, message) {
     if (level <= levelTag) {
         switch (level) {
             case TRACE:
-                console.log("MHO" + datetime + " [Trace]: " + tag + " -> " + message);
+                console.log("MHO " + datetime + " [Trace]: " + tag + " -> " + message);
                 break;
             case DEBUG:
-
-                console.log("MHO" + datetime + " [Debug]: " + tag + " -> " + message);
+                console.log("MHO " + datetime + " [Debug]: " + tag + " -> " + message);
                 break;
             case INFO:
-
-                console.log("MHO" + datetime + " [Info]: " + tag + " -> " + message);
+                console.log("MHO " + datetime + " [Info]: " + tag + " -> " + message);
+                break;
+            case WARNING:
+                console.log("MHO " + datetime + " [Warning]: " + tag + " -> " + message);
                 break;
             case ERROR:
-
-                console.log("MHO" + datetime + " [Error]: " + tag + " -> " + message);
+                console.log("MHO " + datetime + " [Error]: " + tag + " -> " + message);
                 break;
             case FATAL:
-
-                console.log("MHO" + datetime + " [Fatal]: " + tag + " -> " + message);
+                console.log("MHO " + datetime + " [Fatal]: " + tag + " -> " + message);
                 break;
         }
     }
