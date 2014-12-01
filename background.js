@@ -9,6 +9,17 @@ var MHGame = "mousehuntgame.com";
 // Listener Managers
 chrome.browserAction.onClicked.addListener(gotoMHGameTab);
 
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.storage) {
+        if (typeof request.value != 'undefined') {
+            localStorage[request.storage] = request.value;
+        }
+        sendResponse({storage: localStorage[request.storage]});
+    } else {
+        sendResponse({});
+    }
+});
+
 function gotoMHGameTab() {
     log('background', DEBUG, 'Go to mousehuntgame tab if it is opened');
     chrome.tabs.query({}, function (tabs) {
@@ -29,7 +40,9 @@ function gotoMHGameTab() {
 }
 
 function updateBrowserActionView() {
-    if (localStorage.MHO_login == 1) {
+    var gameStatus = localStorage.MHO_login;
+
+    if (gameStatus == 'yes') {
         chrome.browserAction.setIcon({path: "/images/cheese32on.png"});
         chrome.browserAction.setBadgeBackgroundColor({color:[208, 0, 24, 255]}); // Red
         chrome.browserAction.setBadgeText({text:"19:25"});
