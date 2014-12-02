@@ -25,6 +25,9 @@ function getHuntTimer() {
         log("core", WARNING, O_huntTimer.firstChild.textContent);
         chrome.extension.sendMessage({storage: 'MHO_login', value: 'yes'});
     }
+
+    chrome.extension.sendMessage({method: 'updateBrowserAction'});
+
 }
 
 function getHornButton() {
