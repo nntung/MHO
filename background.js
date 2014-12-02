@@ -8,10 +8,9 @@ var MHGame = "mousehuntgame.com";
 ////////////////////////////////////////////////////////////////////////////////////
 // Listener
 ////////////////////////////////////////////////////////////////////////////////////
-
 chrome.browserAction.onClicked.addListener(gotoMHGameTab);
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.storage) {
         if (typeof request.value != 'undefined') {
             localStorage[request.storage] = request.value;
@@ -22,25 +21,23 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.method == 'updateBrowserAction') {
         updateBrowserActionView();
         sendResponse({});
     } else {
-        sendResponse({});
     }
 });
 
 ////////////////////////////////////////////////////////////////////////////////////
 // Handler
 ////////////////////////////////////////////////////////////////////////////////////
-
 function gotoMHGameTab() {
     log('background', DEBUG, 'Go to mousehuntgame tab if it is opened');
     chrome.tabs.query({}, function (tabs) {
-        for (var i = 0; i<tabs.length;  i++) {
+        for (var i = 0; i < tabs.length; i++) {
             var tab = tabs[i];
-            if ( tab.url && (tab.url.indexOf(MHGame)>0) ) {
+            if (tab.url && (tab.url.indexOf(MHGame) > 0)) {
                 log('background', DEBUG, 'Found MHGame tab: ' + tab.url + '. ' +
                     'Focusing and refreshing user data ...');
                 chrome.tabs.update(tab.id, { selected: true });
@@ -58,11 +55,11 @@ function updateBrowserActionView() {
 
     if (gameStatus == 'yes') {
         chrome.browserAction.setIcon({path: "/images/cheese32on.png"});
-        chrome.browserAction.setBadgeBackgroundColor({color:[208, 0, 24, 255]}); // Red
-        chrome.browserAction.setBadgeText({text:"?"});
+        chrome.browserAction.setBadgeBackgroundColor({color: [208, 0, 24, 255]}); // Red
+        chrome.browserAction.setBadgeText({text: "?"});
     } else {
-        chrome.browserAction.setIcon({path:"/images/cheese32off.png"});
-        chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]}); // Gray
-        chrome.browserAction.setBadgeText({text:"?"});
+        chrome.browserAction.setIcon({path: "/images/cheese32off.png"});
+        chrome.browserAction.setBadgeBackgroundColor({color: [190, 190, 190, 230]}); // Gray
+        chrome.browserAction.setBadgeText({text: "?"});
     }
 }
