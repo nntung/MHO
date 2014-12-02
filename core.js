@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////////
 // Listener
 ////////////////////////////////////////////////////////////////////////////////////
-window.addEventListener('DOMContentLoaded', startup, false);
+window.addEventListener('DOMContentLoaded', contentLoaded, false);
 
 ////////////////////////////////////////////////////////////////////////////////////
 // Utilities
@@ -18,13 +18,20 @@ window.addEventListener('DOMContentLoaded', startup, false);
 
 var MHO_data; // store user data
 var MHO_login; // is login already
-var MHO_object; // is got every objects
 var O_huntTimer;
 var O_hornButton;
 
+function contentLoaded() {
+    log("core", TRACE, "Handle DOMContentLoaded");
+    syncUser(startup);
+}
+
 function startup() {
-    log("core", TRACE, "Start up when DOMContentLoaded");
-    syncUser(getObjects);
+    log("core", TRACE, "Start up ...");
+
+    if (MHO_login == 'yes') {
+        getObjects();
+    }
 
 }
 
@@ -69,20 +76,19 @@ function syncUser(callback) {
                         log("core", DEBUG, "syncUser .. successfully! " + MHO_data.user.unique_hash);
                         MHO_login = 'yes';
 
+                        // call back if yes
                         if (callback != null) setTimeout(callback, 100);
 
                     } else if (typeof MHO_data.error_title != 'undefined') {
                         log("core", ERROR, "syncUser .. " + MHO_data.error_title);
                         MHO_login = 'no';
+                        // do nothing
                     } else {
 
                         // check other errors!
                         syncAgain(false, callback, request.responseText);
 
                     }
-
-                    chrome.extension.sendMessage({storage: 'MHO_login', value: MHO_login});
-                    chrome.extension.sendMessage({method: 'updateBrowserAction'});
 
                 } catch (ex) {
                     syncAgain(true, callback, ex);
@@ -93,15 +99,6 @@ function syncUser(callback) {
         }
     };
     request.send(null);
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-// get Objects
-////////////////////////////////////////////////////////////////////////////////////
-function getObjects() {
-    MHO_object = true;
-    getHuntTimer();
-    getHornButton();
 }
 
 function refresh(msg) {
@@ -126,21 +123,19 @@ function refresh(msg) {
     }, timeout * 1000);
 }
 
-function getHuntTimer() {
-    log("core", TRACE, "getHuntTimer");
+function getObjects() {
+    log("core", TRACE, "getObjects");
 
+    // get huntTimer
     O_huntTimer = document.getElementById('huntTimer');
     if (O_huntTimer == null) {
-        MHO_object = false;
         refresh("CANNOT get Hunt Timer");
+        return;
     }
 
     log("core", DEBUG, O_huntTimer.firstChild.textContent);
-}
 
-function getHornButton() {
-    log("core", TRACE, "getHornButton");
-
+    // get hornButton
     try {
         O_hornButton = document.getElementsByClassName('hornbutton')[0].firstChild;
         log("core", DEBUG, "getHornButton .. GOT Horn Button in common version");
@@ -152,7 +147,10 @@ function getHornButton() {
             refresh("CANNOT get Horn Button");
         }
     }
+
+    // other things
 }
+
 
 /*
  // Content Script to save data.
